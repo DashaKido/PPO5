@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardview_dark_background"
+    tools:context=".BasicFragment">
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.92">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/deleteAllButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/deleteAll"
+                android:textColor="#8148C8"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/bracketButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/bracket"
+                android:textColor="#8148C8"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/percentButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/percent"
+                android:textColor="#8148C8"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/divButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/division"
+                android:textColor="#8148C8"
+                tools:ignore="TextContrastCheck" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/sevenButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/seven"
+                android:textColor="#FFFFFF"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/eightButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/eight"
+                android:textColor="#FFFFFF"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/nineButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/nine"
+                android:textColor="#FFFFFF"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/mulButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/multiply"
+                android:textColor="#8148C8"
+                tools:ignore="TextContrastCheck" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/fourButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/four"
+                android:textColor="#FFFFFF"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/fiveButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/five"
+                android:textColor="#FFFFFF"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/sixButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/six"
+                android:textColor="#FFFFFF"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/subButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/subtraction"
+                android:textColor="#8148C8"
+                tools:ignore="TextContrastCheck" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/oneButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/one"
+                android:textColor="#FFFFFF"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/twoButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/two"
+                android:textColor="#FFFFFF"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/threeButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/three"
+                android:textColor="#FFFFFF"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/addButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/addition"
+                android:textColor="#8148C8"
+                tools:ignore="TextContrastCheck" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/negativeButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/negative"
+                android:textColor="#FFFFFF"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/zeroButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/zero"
+                android:textColor="#FFFFFF"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/commaButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#BA85FC"
+                android:text="@string/comma"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/resultButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#8148C8"
+                android:text="@string/result" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/display"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button24"
+        android:layout_width="102dp"
+        android:layout_height="48dp"
+        style="@style/Widget.MaterialComponents.Button"
+        android:backgroundTint="#8148C8"
+        android:text="@string/backspace"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
