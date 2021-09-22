@@ -26,4 +26,7 @@
 
     <string name="backspace"> </string>
     <string name="display">Введите число</string>
+
+    <string name="advanced">advanced</string>
+    <string name="basic">basic</string>
 </resources>

@@ -29,7 +29,6 @@
                 android:background="@drawable/circle"
                 android:onClick="deleteAllBTN"
                 android:text="@string/deleteAll"
-                android:textColor="#8148C8"
                 android:textSize="24sp"
                 tools:ignore="TextContrastCheck" />
 
@@ -43,7 +42,6 @@
                 android:background="@drawable/circle"
                 android:onClick="bracketBTN"
                 android:text="@string/bracket"
-                android:textColor="#8148C8"
                 android:textSize="24sp"
                 tools:ignore="TextContrastCheck" />
 
@@ -57,7 +55,6 @@
                 android:background="@drawable/circle"
                 android:onClick="percentBTN"
                 android:text="@string/percent"
-                android:textColor="#8148C8"
                 android:textSize="24sp"
                 tools:ignore="TextContrastCheck" />
 
@@ -71,7 +68,6 @@
                 android:background="@drawable/circle"
                 android:onClick="divBTN"
                 android:text="@string/division"
-                android:textColor="#8148C8"
                 android:textSize="24sp"
                 tools:ignore="TextContrastCheck" />
         </TableRow>
@@ -132,7 +128,6 @@
                 android:background="@drawable/circle"
                 android:onClick="mulBTN"
                 android:text="@string/multiply"
-                android:textColor="#8148C8"
                 android:textSize="24sp"
                 tools:ignore="TextContrastCheck" />
         </TableRow>
@@ -193,7 +188,6 @@
                 android:background="@drawable/circle"
                 android:onClick="subBTN"
                 android:text="@string/subtraction"
-                android:textColor="#8148C8"
                 android:textSize="24sp"
                 tools:ignore="TextContrastCheck" />
         </TableRow>
@@ -254,7 +248,6 @@
                 android:background="@drawable/circle"
                 android:onClick="addBTN"
                 android:text="@string/addition"
-                android:textColor="#8148C8"
                 android:textSize="24sp"
                 tools:ignore="TextContrastCheck" />
         </TableRow>

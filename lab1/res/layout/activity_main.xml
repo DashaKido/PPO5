@@ -19,19 +19,27 @@
 
             <Button
                 android:id="@+id/button_basic"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:backgroundTint="#BA85FC"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
                 android:onClick="Change"
-                android:text="basic" />
+                android:text="@string/basic"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <Button
                 android:id="@+id/button_advanced"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:backgroundTint="#BA85FC"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
                 android:onClick="Change"
-                android:text="advanced" />
+                android:text="@string/advanced"
+                tools:ignore="TouchTargetSizeCheck" />
 
         </LinearLayout>
 
