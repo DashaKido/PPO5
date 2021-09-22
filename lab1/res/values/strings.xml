@@ -25,5 +25,5 @@
     <string name="negative">+/-</string>
 
     <string name="backspace"> </string>
-    <string name="display"> Введите число </string>
+    <string name="display">Введите число</string>
 </resources>
