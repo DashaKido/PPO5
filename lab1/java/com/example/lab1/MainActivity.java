@@ -46,22 +46,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void Change(View view) {
-        Fragment fragment = null;
-        switch (view.getId()) {
-            case R.id.button_basic:
-                fragment = new BasicFragment();
-                break;
-            case R.id.button_advanced:
-                fragment = new AdvancedFragment();
-                break;
-        }
-        //помещение нужного фрагмента на главный экран
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.activityFragment, fragment);
-        fragmentTransaction.commit();
-    }
+
 
     public void deleteAllBTN(View view) {
         display.setText("");
