@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardview_dark_background"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="false"
+        android:inputType="none"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/display"
+        android:textAlignment="textEnd"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/previousCalculationView"
+        tools:ignore="LabelFor,TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/previousCalculationView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+
+        android:layout_marginEnd="16dp"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="400dp"
+        android:layout_height="250dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tableLayout2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/deleteAllButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="deleteAllBTN"
+                android:text="@string/deleteAll"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/percentButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="percentBTN"
+                android:text="@string/percent"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <ImageButton
+                android:id="@+id/backspaceButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:backgroundTint="#8148C8"
+                android:contentDescription="@string/backspace"
+                android:onClick="backspaceBTN"
+                app:srcCompat="@drawable/backspace"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/divButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="divBTN"
+                android:text="@string/division"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/sevenButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="sevenBTN"
+                android:text="@string/seven"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/eightButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="eightBTN"
+                android:text="@string/eight"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/nineButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="nineBTN"
+                android:text="@string/nine"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/mulButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="mulBTN"
+                android:text="@string/multiply"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/fourButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="fourBTN"
+                android:text="@string/four"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/fiveButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="fiveBTN"
+                android:text="@string/five"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/sixButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="sixBTN"
+                android:text="@string/six"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/subButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="subBTN"
+                android:text="@string/subtraction"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/oneButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="oneBTN"
+                android:text="@string/one"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/twoButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="twoBTN"
+                android:text="@string/two"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/threeButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="threeBTN"
+                android:text="@string/three"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/addButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="addBTN"
+                android:text="@string/addition"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/bracketButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="bracketBTN"
+                android:text="@string/bracket"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/zeroButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="zeroBTN"
+                android:text="@string/zero"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/commaButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="commaBTN"
+                android:text="@string/comma"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/resultButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="resultBTN"
+                android:text="@string/result"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/tableLayout2"
+        android:layout_width="351dp"
+        android:layout_height="247dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tableLayout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/trigSin"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="trigSinBTN"
+                android:text="@string/trigSin"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/trigCos"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="trigCosBTN"
+                android:text="@string/trigCos"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/trigTan"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="trigTanBTN"
+                android:text="@string/trigTan"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/trigArcSin"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="trigArcSinBTN"
+                android:text="@string/trigArcSin"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/trigArcCos"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="trigArcCosBTN"
+                android:text="@string/trigArcCos"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/trigArcTan"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="trigArcTanBTN"
+                android:text="@string/trigArcTan"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/Log"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="logBTN"
+                android:text="@string/Log"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/naturalLog"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="naturalLogBTN"
+                android:text="@string/naturalLog"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/squareRoot"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="squareRootBTN"
+                android:text="@string/squareRoot"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/e"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="eBTN"
+                android:text="@string/e"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/Pi"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="piBTN"
+                android:text="@string/pi"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/absoluteValue"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="absoluteValueBTN"
+                android:text="@string/absoluteValue"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/isPrimeFunction"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="isPrimeFunctionBTN"
+                android:text="@string/isPrimeFunction"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/xSquared"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="xSquaredBTN"
+                android:text="@string/xSquared"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/xPowerY"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle"
+                android:onClick="xPowerYBTN"
+                android:text="@string/xPowerY"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+        </TableRow>
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

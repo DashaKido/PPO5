@@ -21,12 +21,26 @@
     <string name="subtraction">-</string>
     <string name="addition">+</string>
     <string name="result">=</string>
-    <string name="comma">,</string>
+    <string name="comma">.</string>
     <string name="negative">+/-</string>
 
     <string name="backspace"> </string>
     <string name="display">Введите число</string>
 
-    <string name="advanced">advanced</string>
-    <string name="basic">basic</string>
+    <string name="trigSin">sin</string>
+    <string name="trigCos">cos</string>
+    <string name="trigTan">tan</string>
+    <string name="trigArcSin">sin<sup><small>-1</small></sup></string>
+    <string name="trigArcCos">cos<sup><small>-1</small></sup></string>
+    <string name="trigArcTan">tan<sup><small>-1</small></sup></string>
+    <string name="naturalLog">ln</string>
+    <string name="Log">log</string>
+    <string name="squareRoot">√</string>
+    <string name="absoluteValue">|x|</string>
+    <string name="pi">Pi</string>
+    <string name="e">e</string>
+    <string name="xSquared">x<sup><small>2</small></sup></string>
+    <string name="xPowerY">x<sup><small>y</small></sup></string>
+    <string name="isPrimeFunction">prime</string>
+
 </resources>
