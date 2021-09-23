@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import org.mariuszgromada.math.mxparser.*;
+
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.view.View;
 import android.widget.EditText;
+
 
 public class MainActivity extends AppCompatActivity {
     private EditText display;
@@ -71,21 +74,20 @@ public class MainActivity extends AppCompatActivity {
         int textLen = display.getText().length();
 
         for (int i = 0; i < cursorPos; i++) {
-            if(display.getText().toString().substring(i,i+1).equals("(")){
-                openPar+=1;
+            if (display.getText().toString().substring(i, i + 1).equals("(")) {
+                openPar += 1;
 
             }
-            if(display.getText().toString().substring(i,i+1).equals(")")){
-                closedPar+=1;
+            if (display.getText().toString().substring(i, i + 1).equals(")")) {
+                closedPar += 1;
             }
         }
-        if(openPar==closedPar||display.getText().toString().substring(textLen-1,textLen).equals("(")){
+        if (openPar == closedPar || display.getText().toString().substring(textLen - 1, textLen).equals("(")) {
             updateText("(");
-        }
-        else if(closedPar<openPar&&!display.getText().toString().substring(textLen-1,textLen).equals("(")){
+        } else if (closedPar < openPar && !display.getText().toString().substring(textLen - 1, textLen).equals("(")) {
             updateText(")");
         }
-        display.setSelection(cursorPos+1);
+        display.setSelection(cursorPos + 1);
     }
 
     public void percentBTN(View view) {
@@ -93,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void divBTN(View view) {
-        updateText("/");
+        updateText("÷");
     }
 
     public void sevenBTN(View view) {
@@ -109,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void mulBTN(View view) {
-        updateText("*");
+        updateText("×");
     }
 
     public void fourBTN(View view) {
@@ -157,6 +159,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void resultBTN(View view) {
+        String userExp = display.getText().toString();
+        userExp = userExp.replaceAll("÷", "/");
+        userExp = userExp.replaceAll("×", "*");
+
+        Expression exp=new Expression(userExp);
+        String result = String.valueOf(exp.calculate());
+        display.setText(result);
+        display.setSelection(result.length());
 
     }
 
