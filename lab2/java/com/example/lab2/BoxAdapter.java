@@ -57,18 +57,10 @@ public class BoxAdapter extends BaseAdapter {
         // заполняем View в пункте списка данными из рейсов
         ((TextView) view.findViewById(R.id.Number)).setText(t.number);
         ((TextView) view.findViewById(R.id.BusType)).setText("Тип: " + t.busType);
-        ((TextView) view.findViewById(R.id.Destination)).setText("Пункт назначения: " +t.destination);
-        ((TextView) view.findViewById(R.id.DepartureTime)).setText("Время прибытия: " +t.departureTime);
-        ((TextView) view.findViewById(R.id.ArrivalTime)).setText("Время отправления: " + t.arrivalTime+":00");
+        ((TextView) view.findViewById(R.id.Destination)).setText("Пункт назначения: " + t.destination);
+        ((TextView) view.findViewById(R.id.DepartureTime)).setText("Время прибытия: " + t.departureTime);
+        ((TextView) view.findViewById(R.id.ArrivalTime)).setText("Время отправления: " + t.arrivalTime);
 
-
-        CheckBox cbBuy = (CheckBox) view.findViewById(R.id.cbBox);
-        // присваиваем чекбоксу обработчик
-        cbBuy.setOnCheckedChangeListener(myCheckChangeList);
-        // пишем позицию
-        cbBuy.setTag(position);
-        // заполняем данными из товаров: выбрано или нет
-        cbBuy.setChecked(t.box);
         return view;
     }
 
@@ -77,23 +69,5 @@ public class BoxAdapter extends BaseAdapter {
         return ((Trip) getItem(position));
     }
 
-    // содержимое выбора
-    ArrayList<Trip> getBox() {
-        ArrayList<Trip> box = new ArrayList<Trip>();
-        for (Trip t : objects) {
-            // если выбрано
-            if (t.box)
-                box.add(t);
-        }
-        return box;
-    }
 
-    // обработчик для чекбоксов
-    OnCheckedChangeListener myCheckChangeList = new OnCheckedChangeListener() {
-        public void onCheckedChanged(CompoundButton buttonView,
-                                     boolean isChecked) {
-            // меняем данные товара (выбрано или нет)
-            getTrip((Integer) buttonView.getTag()).box = isChecked;
-        }
-    };
 }

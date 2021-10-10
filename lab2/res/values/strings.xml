@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">lab2</string>
-    <string name="box">Рейсы</string>
-    <string name="show">Показать</string>
-    <string name="all">Все рейсы</string>
+    <string name="app_name">Trips</string>
+    <string name="findTrips">Искать рейсы</string>
+    <string name="allTrips">Все рейсы</string>
+    <string name="addTrip">Добавить рейс</string>
+    <string name="saveFile">Сохранить файл</string>
+    <string name="loadFile">Загрузить файл</string>
 </resources>
