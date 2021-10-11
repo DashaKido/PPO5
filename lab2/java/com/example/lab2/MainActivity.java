@@ -1,9 +1,10 @@
 package com.example.lab2;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,21 +14,22 @@ import android.widget.ListView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.annotation.RequiresApi;
 
 public class MainActivity extends AppCompatActivity {
 
     static ArrayList<Trip> trips = new ArrayList<Trip>();
-    BoxAdapter boxAdapter;
-    static private TimePicker timePicker;
-    static private int hour;
-    static private int minute;
+    TripAdapter tripAdapter;
+    private TimePicker timePicker;
+    boolean added = false;
 
     /**
      * Called when the activity is first created.
      */
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,47 +41,44 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     String getType() {
-        BusType bus = null;
         int some = (int) (1 + Math.random() * (3 + 1));
         String type;
         if (some == 1) {
-            type = bus.BASIC.name();
+            type = BusType.BASIC.name();
         } else if (some == 2) {
-            type = bus.HIGH_SPEED.name();
+            type = BusType.HIGH_SPEED.name();
         } else if (some == 3) {
-            type = bus.OFFICIAL.name();
+            type = BusType.OFFICIAL.name();
         } else {
-            type = bus.BASIC.name();
+            type = BusType.BASIC.name();
         }
 
         return type;
     }
 
     int getArrivalHour() {
-        int time = (int) (Math.random() * (24));
-        return time;
+        return (int) (Math.random() * (24));
     }
 
     int getArrivalMinute() {
-        int time = (int) (Math.random() * (60));
-        return time;
+        return (int) (Math.random() * (60));
     }
 
     // генерируем данные для адаптера
     void fillData() {
-        for (int i = 1; i <= 20; i++) {
+        for (int i = 1; i <= 1; i++) {
 
             int arrivalHour = getArrivalHour();
             int arrivalMinute = getArrivalMinute();
-            int departureHour = 0;
-            int departureMinute = 0;
-            String arrivalTime = "00:00";
-            String departureTime = "00:00";
+            int departureHour;
+            int departureMinute;
+            String arrivalTime;
+            String departureTime;
 
             if (arrivalHour == 23 && arrivalMinute >= 55) {
                 arrivalTime = arrivalHour + ":" + arrivalMinute;
@@ -139,36 +138,41 @@ public class MainActivity extends AppCompatActivity {
             }
 
             trips.add(new Trip("" + i, getType(), "some",
-                    arrivalHour, arrivalMinute, arrivalTime, departureHour, departureMinute, departureTime));
+                    arrivalHour, arrivalMinute, arrivalTime,
+                    departureHour, departureMinute, departureTime));
         }
     }
 
     // вывод нужных рейсов
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void findTrip(View v) {
-        hour = timePicker.getHour();
-        minute = timePicker.getMinute();
-        ArrayList<Trip> box = new ArrayList<Trip>();
+        int hour = timePicker.getHour();
+        int minute = timePicker.getMinute();
+        ArrayList<Trip> box = new ArrayList<>();
         for (Trip t : trips) {
-            if (hour<t.arrivalHour)
+            if (hour < t.arrivalHour)
                 box.add(t);
-            else if(hour==t.arrivalHour&&minute<=t.arrivalMinute)
+            else if (hour == t.arrivalHour && minute <= t.arrivalMinute)
                 box.add(t);
         }
-        boxAdapter = new BoxAdapter(this, box);
+        tripAdapter = new TripAdapter(this, box);
         ListView lvMain = (ListView) findViewById(R.id.lvMain);
-        lvMain.setAdapter(boxAdapter);
+        lvMain.setAdapter(tripAdapter);
         Toast.makeText(this, "Показаны доступные рейсы", Toast.LENGTH_LONG).show();
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch(id){
+        switch (id) {
             case R.id.allTrips:
-                boxAdapter = new BoxAdapter(this, trips);
+                if (added == true) {
+                    trips = (ArrayList<Trip>) getIntent().getSerializableExtra("ARRAYLIST_with_add");
+                }
+                tripAdapter = new TripAdapter(this, trips);
                 ListView lvMain = (ListView) findViewById(R.id.lvMain);
-                lvMain.setAdapter(boxAdapter);
+                lvMain.setAdapter(tripAdapter);
                 Toast.makeText(this, "Показаны все рейсы", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.loadFile:
@@ -178,7 +182,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Сохранение файла", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.addTrip:
-                Toast.makeText(this, "Добавление рейса", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                intent.putExtra("ARRAYLIST", trips);
+                added = true;
+                startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);

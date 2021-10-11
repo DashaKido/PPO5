@@ -1,6 +1,8 @@
 package com.example.lab2;
 
-public class Trip {
+import java.io.Serializable;
+
+public class Trip implements Serializable {
     String number;
     String busType;
     String destination;
@@ -12,7 +14,8 @@ public class Trip {
     String arrivalTime;
 
     Trip(String _describe, String _busType, String _destination,
-         int _arrivalHour, int _arrivalMinute, String _arrivalTime, int _departureHour, int _departureMinute, String _departureTime) {
+         int _arrivalHour, int _arrivalMinute, String _arrivalTime,
+         int _departureHour, int _departureMinute, String _departureTime) {
         number = _describe;
         busType = _busType;
         destination = _destination;
@@ -23,5 +26,4 @@ public class Trip {
         departureTime = _departureTime;
         arrivalTime = _arrivalTime;
     }
-
 }

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddActivity">
+
+    <TextView
+        android:id="@+id/numberTripText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="161dp"
+        android:text="@string/numberTrip"
+        app:layout_constraintBottom_toTopOf="@+id/numberTrip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="DuplicateIds, MissingConstraints" />
+
+    <EditText
+        android:id="@+id/numberTrip"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="195dp"
+        android:layout_marginEnd="196dp"
+        android:importantForAutofill="no"
+        android:inputType="date"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/busTypeTripText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numberTripText"
+        tools:ignore="DuplicateIds,LabelFor,MissingConstraints,SpeakableTextPresentCheck,TextFields" />
+
+    <TextView
+        android:id="@+id/busTypeTripText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginEnd="161dp"
+        android:text="@string/busTypeTrip"
+        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numberTrip"
+        tools:ignore="DuplicateIds,MissingConstraints" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="195dp"
+        android:layout_marginEnd="196dp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/destinationTripText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/busTypeTripText"
+        tools:ignore="DuplicateIds,LabelFor,MissingConstraints,SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/destinationTripText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginEnd="161dp"
+        android:text="@string/destinationTrip"
+        app:layout_constraintBottom_toTopOf="@+id/destinationTrip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        tools:ignore="DuplicateIds, MissingConstraints" />
+
+    <EditText
+        android:id="@+id/destinationTrip"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="195dp"
+        android:layout_marginEnd="196dp"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/arrivalTripText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/destinationTripText"
+        tools:ignore="DuplicateIds,LabelFor,MissingConstraints,SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/arrivalTripText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginEnd="161dp"
+        android:text="@string/arrivalTrip"
+        app:layout_constraintBottom_toTopOf="@+id/timePicker2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/destinationTrip"
+        tools:ignore="DuplicateIds, MissingConstraints" />
+
+    <TimePicker
+        android:id="@+id/timePicker2"
+        android:layout_width="257dp"
+        android:layout_height="95dp"
+        android:layout_marginStart="77dp"
+        android:layout_marginEnd="78dp"
+        android:longClickable="false"
+        android:timePickerMode="spinner"
+        app:layout_constraintBottom_toTopOf="@+id/addTripButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/arrivalTripText" />
+
+    <Button
+        android:id="@+id/addTripButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginEnd="96dp"
+        android:layout_marginBottom="50dp"
+        android:layout_weight="1"
+        android:background="#8148C8"
+        android:onClick="addTripButton"
+        android:text="@string/addTrip"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timePicker2"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

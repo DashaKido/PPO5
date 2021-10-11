@@ -7,9 +7,9 @@
 
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="327dp"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="dddd"
-            android:textSize="20sp"></TextView>
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/Destination"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="dddd"
-            android:textSize="20sp"></TextView>
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/ArrivalTime"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="dddd"
-            android:textSize="20sp"></TextView>
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/DepartureTime"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="dddd"
-            android:textSize="20sp"></TextView>
+            android:textSize="20sp" />
 
     </LinearLayout>
 

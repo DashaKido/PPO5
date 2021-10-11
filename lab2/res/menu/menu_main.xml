@@ -21,6 +21,7 @@
     <item
         android:id="@+id/addTrip"
         android:orderInCategory="100"
+        android:icon="@drawable/baseline_add_20"
         android:title="@string/addTrip"
-        app:showAsAction="never"/>
+        app:showAsAction="always"/>
 </menu>

@@ -28,7 +28,7 @@
             android:text="@string/findTrips"
             android:textSize="20sp"
             android:onClick="findTrip"
-            tools:ignore="TouchTargetSizeCheck" />
+            tools:ignore="NestedWeights,TouchTargetSizeCheck,UsingOnClickInXml" />
     </LinearLayout>
 
     <ListView
