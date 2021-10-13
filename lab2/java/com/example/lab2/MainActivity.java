@@ -1,6 +1,5 @@
 package com.example.lab2;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
@@ -21,14 +20,10 @@ import androidx.annotation.RequiresApi;
 
 public class MainActivity extends AppCompatActivity {
 
-    static ArrayList<Trip> trips = new ArrayList<Trip>();
+    static public ArrayList<Trip> trips = new ArrayList<Trip>();
     TripAdapter tripAdapter;
     private TimePicker timePicker;
-    boolean added = false;
-
-    /**
-     * Called when the activity is first created.
-     */
+    static public int sizeOfArray = 5;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             type = BusType.BASIC.name();
         }
-
         return type;
     }
 
@@ -69,9 +63,8 @@ public class MainActivity extends AppCompatActivity {
         return (int) (Math.random() * (60));
     }
 
-    // генерируем данные для адаптера
     void fillData() {
-        for (int i = 1; i <= 1; i++) {
+        for (int i = 1; i <= sizeOfArray; i++) {
 
             int arrivalHour = getArrivalHour();
             int arrivalMinute = getArrivalMinute();
@@ -143,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // вывод нужных рейсов
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void findTrip(View v) {
         int hour = timePicker.getHour();
@@ -167,27 +159,17 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.allTrips:
-                if (added == true) {
-                    trips = (ArrayList<Trip>) getIntent().getSerializableExtra("ARRAYLIST_with_add");
-                }
                 tripAdapter = new TripAdapter(this, trips);
                 ListView lvMain = (ListView) findViewById(R.id.lvMain);
                 lvMain.setAdapter(tripAdapter);
                 Toast.makeText(this, "Показаны все рейсы", Toast.LENGTH_LONG).show();
                 return true;
-            case R.id.loadFile:
-                Toast.makeText(this, "Загрузка файла", Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.saveFile:
-                Toast.makeText(this, "Сохранение файла", Toast.LENGTH_LONG).show();
-                return true;
             case R.id.addTrip:
                 Intent intent = new Intent(MainActivity.this, AddActivity.class);
-                intent.putExtra("ARRAYLIST", trips);
-                added = true;
                 startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

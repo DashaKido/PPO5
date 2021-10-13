@@ -3,25 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
-    <item
-        android:id="@+id/saveFile"
-        android:orderInCategory="100"
-        android:title="@string/saveFile"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/loadFile"
-        android:orderInCategory="100"
-        android:title="@string/loadFile"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/allTrips"
-        android:orderInCategory="100"
-        android:title="@string/allTrips"
-        app:showAsAction="never"/>
+
     <item
         android:id="@+id/addTrip"
-        android:orderInCategory="100"
         android:icon="@drawable/baseline_add_20"
+        android:orderInCategory="100"
         android:title="@string/addTrip"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/allTrips"
+        android:icon="@drawable/baseline_directions_bus_24"
+        android:orderInCategory="100"
+        android:title="@string/allTrips"
+        app:showAsAction="ifRoom" />
 </menu>
