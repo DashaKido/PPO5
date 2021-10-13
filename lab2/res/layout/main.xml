@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -31,8 +32,9 @@
             tools:ignore="NestedWeights,TouchTargetSizeCheck,UsingOnClickInXml" />
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/lvMain"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="622dp"
         android:layout_weight="1" />

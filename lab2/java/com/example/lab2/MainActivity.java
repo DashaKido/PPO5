@@ -1,7 +1,5 @@
 package com.example.lab2;
 
-import java.util.ArrayList;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
@@ -9,21 +7,22 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    static public ArrayList<Trip> trips = new ArrayList<Trip>();
+    static public ArrayList<Trip> trips = new ArrayList<>();
     TripAdapter tripAdapter;
     private TimePicker timePicker;
     static public int sizeOfArray = 5;
+    TripAdapter.OnTripClickListener tripClickListener;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
         timePicker = (TimePicker) findViewById(R.id.timePicker);
         timePicker.setIs24HourView(true);
         fillData();
+
+        tripClickListener = (trip, position) -> Toast.makeText(getApplicationContext(), "Был выбран пункт " + trip.getNumber(),
+                Toast.LENGTH_SHORT).show();
+        tripAdapter = new TripAdapter(this, trips, tripClickListener);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
+        recyclerView.setAdapter(tripAdapter);
     }
 
     @Override
@@ -147,9 +152,9 @@ public class MainActivity extends AppCompatActivity {
             else if (hour == t.arrivalHour && minute <= t.arrivalMinute)
                 box.add(t);
         }
-        tripAdapter = new TripAdapter(this, box);
-        ListView lvMain = (ListView) findViewById(R.id.lvMain);
-        lvMain.setAdapter(tripAdapter);
+        tripAdapter = new TripAdapter(this, box, tripClickListener);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
+        recyclerView.setAdapter(tripAdapter);
         Toast.makeText(this, "Показаны доступные рейсы", Toast.LENGTH_LONG).show();
     }
 
@@ -159,9 +164,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.allTrips:
-                tripAdapter = new TripAdapter(this, trips);
-                ListView lvMain = (ListView) findViewById(R.id.lvMain);
-                lvMain.setAdapter(tripAdapter);
+                tripAdapter = new TripAdapter(this, trips, tripClickListener);
+                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
+                recyclerView.setAdapter(tripAdapter);
                 Toast.makeText(this, "Показаны все рейсы", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.addTrip:
