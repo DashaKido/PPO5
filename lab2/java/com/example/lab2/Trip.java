@@ -1,15 +1,15 @@
 package com.example.lab2;
 
 public class Trip {
-    String number;
-    String busType;
-    String destination;
-    int departureHour;
-    int departureMinute;
-    String departureTime;
-    int arrivalHour;
-    int arrivalMinute;
-    String arrivalTime;
+    private String number;
+    private String busType;
+    private String destination;
+    private int departureHour;
+    private int departureMinute;
+    private String departureTime;
+    private int arrivalHour;
+    private int arrivalMinute;
+    private String arrivalTime;
 
     Trip(String _number, String _busType, String _destination,
          int _arrivalHour, int _arrivalMinute, String _arrivalTime,
@@ -43,5 +43,49 @@ public class Trip {
 
     public String getArrivalTime() {
         return arrivalTime;
+    }
+
+    public int getArrivalHour() {
+        return arrivalHour;
+    }
+
+    public int getArrivalMinute() {
+        return arrivalMinute;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public void setBusType(String busType) {
+        this.busType = busType;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public void setDepartureHour(int departureHour) {
+        this.departureHour = departureHour;
+    }
+
+    public void setDepartureMinute(int departureMinute) {
+        this.departureMinute = departureMinute;
+    }
+
+    public void setDepartureTime(String departureTime) {
+        this.departureTime = departureTime;
+    }
+
+    public void setArrivalHour(int arrivalHour) {
+        this.arrivalHour = arrivalHour;
+    }
+
+    public void setArrivalMinute(int arrivalMinute) {
+        this.arrivalMinute = arrivalMinute;
+    }
+
+    public void setArrivalTime(String arrivalTime) {
+        this.arrivalTime = arrivalTime;
     }
 }

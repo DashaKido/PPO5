@@ -19,24 +19,18 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     static public ArrayList<Trip> trips = new ArrayList<>();
+    public static Trip selectedTrip;
     TripAdapter tripAdapter;
     private TimePicker timePicker;
-    static public int sizeOfArray = 5;
-    TripAdapter.OnTripClickListener tripClickListener;
+    public static int sizeOfArray = 8;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        timePicker = (TimePicker) findViewById(R.id.timePicker);
+        timePicker = findViewById(R.id.timePicker);
         timePicker.setIs24HourView(true);
         fillData();
-
-        tripClickListener = (trip, position) -> Toast.makeText(getApplicationContext(), "Был выбран пункт " + trip.getNumber(),
-                Toast.LENGTH_SHORT).show();
-        tripAdapter = new TripAdapter(this, trips, tripClickListener);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
-        recyclerView.setAdapter(tripAdapter);
     }
 
     @Override
@@ -45,100 +39,35 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    String getType() {
-        int some = (int) (1 + Math.random() * (3 + 1));
-        String type;
-        if (some == 1) {
-            type = BusType.BASIC.name();
-        } else if (some == 2) {
-            type = BusType.HIGH_SPEED.name();
-        } else if (some == 3) {
-            type = BusType.OFFICIAL.name();
-        } else {
-            type = BusType.BASIC.name();
-        }
-        return type;
-    }
-
-    int getArrivalHour() {
-        return (int) (Math.random() * (24));
-    }
-
-    int getArrivalMinute() {
-        return (int) (Math.random() * (60));
-    }
 
     void fillData() {
-        for (int i = 1; i <= sizeOfArray; i++) {
+        trips.add(new Trip("1001", BusType.OFFICIAL.name(), "Вокзал",
+                10, 15, "10:15",
+                10, 20, "10:20"));
+        trips.add(new Trip("1001", BusType.OFFICIAL.name(), "Вокзал",
+                10, 40, "10:40",
+                10, 45, "10:45"));
 
-            int arrivalHour = getArrivalHour();
-            int arrivalMinute = getArrivalMinute();
-            int departureHour;
-            int departureMinute;
-            String arrivalTime;
-            String departureTime;
+        trips.add(new Trip("1006", BusType.BASIC.name(), "Чижовка",
+                12, 55, "12:55",
+                13, 0, "13:00"));
+        trips.add(new Trip("1006", BusType.BASIC.name(), "Чижовка",
+                15, 19, "15:19",
+                15, 24, "15:24"));
 
-            if (arrivalHour == 23 && arrivalMinute >= 55) {
-                arrivalTime = arrivalHour + ":" + arrivalMinute;
-                departureHour = 0;
-                departureMinute = arrivalMinute + 5 - 60;
-                departureTime = "0" + departureHour + ":0" + departureMinute;
-            } else if (arrivalHour <= 9 && arrivalMinute < 55 && arrivalMinute > 9) {
-                arrivalTime = "0" + arrivalHour + ":" + arrivalMinute;
-                departureHour = arrivalHour;
-                departureMinute = arrivalMinute + 5;
-                departureTime = "0" + departureHour + ":" + departureMinute;
-            } else if (arrivalHour <= 9 && arrivalMinute < 10 && arrivalMinute > 4) {
-                arrivalTime = "0" + arrivalHour + ":0" + arrivalMinute;
-                departureHour = arrivalHour;
-                departureMinute = arrivalMinute + 5;
-                departureTime = "0" + departureHour + ":" + departureMinute;
-            } else if (arrivalHour <= 9 && arrivalMinute <= 4) {
-                arrivalTime = "0" + arrivalHour + ":0" + arrivalMinute;
-                departureHour = arrivalHour;
-                departureMinute = arrivalMinute + 5;
-                departureTime = "0" + departureHour + ":0" + departureMinute;
-            } else if (arrivalHour <= 23 && arrivalHour > 9 && arrivalMinute <= 4) {
-                arrivalTime = arrivalHour + ":0" + arrivalMinute;
-                departureHour = arrivalHour;
-                departureMinute = arrivalMinute + 5;
-                departureTime = departureHour + ":0" + departureMinute;
-            } else if (arrivalHour <= 23 && arrivalHour > 9 && arrivalMinute < 55 && arrivalMinute > 9) {
-                arrivalTime = arrivalHour + ":" + arrivalMinute;
-                departureHour = arrivalHour;
-                departureMinute = arrivalMinute + 5;
-                departureTime = departureHour + ":" + departureMinute;
-            } else if (arrivalHour <= 23 && arrivalHour > 9 && arrivalMinute < 10 && arrivalMinute > 4) {
-                arrivalTime = arrivalHour + ":0" + arrivalMinute;
-                departureHour = arrivalHour;
-                departureMinute = arrivalMinute + 5;
-                departureTime = departureHour + ":" + departureMinute;
-            } else if (arrivalHour <= 23 && arrivalHour > 9 && arrivalMinute >= 55) {
-                arrivalTime = arrivalHour + ":" + arrivalMinute;
-                departureHour = arrivalHour + 1;
-                departureMinute = arrivalMinute + 5 - 60;
-                departureTime = departureHour + ":0" + departureMinute;
-            } else if (arrivalHour < 9 && arrivalMinute >= 55) {
-                arrivalTime = "0" + arrivalHour + ":" + arrivalMinute;
-                departureHour = arrivalHour + 1;
-                departureMinute = arrivalMinute + 5 - 60;
-                departureTime = "0" + departureHour + ":0" + departureMinute;
-            } else if (arrivalHour == 9 && arrivalMinute >= 55) {
-                arrivalTime = arrivalHour + ":" + arrivalMinute;
-                departureHour = arrivalHour + 1;
-                departureMinute = arrivalMinute + 5 - 60;
-                departureTime = departureHour + ":0" + departureMinute;
-            } else {
-                departureHour = arrivalHour;
-                departureMinute = arrivalMinute + 5;
-                arrivalTime = arrivalHour + ":" + arrivalMinute;
-                departureTime = departureHour + ":" + departureMinute;
-            }
+        trips.add(new Trip("1053", BusType.HIGH_SPEED.name(), "Экспобел",
+                1, 30, "01:30",
+                1, 35, "01:35"));
+        trips.add(new Trip("1053", BusType.HIGH_SPEED.name(), "Экспобел",
+                2, 22, "02:22",
+                2, 27, "02:27"));
 
-            trips.add(new Trip("" + i, getType(), "some",
-                    arrivalHour, arrivalMinute, arrivalTime,
-                    departureHour, departureMinute, departureTime));
-        }
+        trips.add(new Trip("1212", BusType.BASIC.name(), "Сухарево-6",
+                8, 0, "08:00",
+                8, 5, "08:05"));
+        trips.add(new Trip("1212", BusType.OFFICIAL.name(), "Сухарево-6",
+                19, 38, "19:38",
+                19, 43, "19:43"));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -147,13 +76,13 @@ public class MainActivity extends AppCompatActivity {
         int minute = timePicker.getMinute();
         ArrayList<Trip> box = new ArrayList<>();
         for (Trip t : trips) {
-            if (hour < t.arrivalHour)
+            if (hour < t.getArrivalHour())
                 box.add(t);
-            else if (hour == t.arrivalHour && minute <= t.arrivalMinute)
+            else if (hour == t.getArrivalHour() && minute <= t.getArrivalMinute())
                 box.add(t);
         }
-        tripAdapter = new TripAdapter(this, box, tripClickListener);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
+        tripAdapter = new TripAdapter(box);
+        RecyclerView recyclerView = findViewById(R.id.list);
         recyclerView.setAdapter(tripAdapter);
         Toast.makeText(this, "Показаны доступные рейсы", Toast.LENGTH_LONG).show();
     }
@@ -164,8 +93,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.allTrips:
-                tripAdapter = new TripAdapter(this, trips, tripClickListener);
-                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
+                tripAdapter = new TripAdapter(trips);
+                RecyclerView recyclerView = findViewById(R.id.list);
                 recyclerView.setAdapter(tripAdapter);
                 Toast.makeText(this, "Показаны все рейсы", Toast.LENGTH_LONG).show();
                 return true;
@@ -173,8 +102,16 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, AddActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.menuEdit:
+                intent = new Intent(MainActivity.this, EditActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                return true;
+            case R.id.menuDelete:
+                Toast.makeText(this, "delete", Toast.LENGTH_LONG).show();
+                return true;
+            default:
+                throw new IllegalStateException("Unexpected value: " + id);
         }
-        return super.onOptionsItemSelected(item);
     }
-
 }

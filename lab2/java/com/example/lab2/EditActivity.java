@@ -14,34 +14,67 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-
-public class AddActivity extends AppCompatActivity {
+public class EditActivity extends AppCompatActivity {
 
     TimePicker timePicker;
-    public String busType = "BASIC";
+    EditText numberEdit, destinationEdit;
+    Trip selectedTrip;
+    String number, destination;
+    int arrivalHour, arrivalMinute;
+    String arrivalTime;
+    int departureHour;
+    int departureMinute;
+    String departureTime;
     RadioGroup radioGroup;
     RadioButton button;
+    public String busType = "";
 
     @SuppressLint("NonConstantResourceId")
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
-        timePicker = findViewById(R.id.timePicker2);
+        setContentView(R.layout.activity_edit);
+        timePicker = findViewById(R.id.timePicker3);
         timePicker.setIs24HourView(true);
-        radioGroup = findViewById(R.id.radioGroup1);
-        button = findViewById(R.id.radioBasic1);
-        button.setChecked(true);
+        numberEdit = findViewById(R.id.numberTrip2);
+        destinationEdit = findViewById(R.id.destinationTrip2);
+        selectedTrip = MainActivity.selectedTrip;
+
+        number = selectedTrip.getNumber();
+        numberEdit.setText(number);
+
+        destination = selectedTrip.getDestination();
+        destinationEdit.setText(destination);
+
+        arrivalHour = selectedTrip.getArrivalHour();
+        timePicker.setHour(arrivalHour);
+
+        arrivalMinute = selectedTrip.getArrivalMinute();
+        timePicker.setMinute(arrivalMinute);
+        radioGroup = findViewById(R.id.radioGroup2);
+        busType = selectedTrip.getBusType();
+        if (busType.equals(BusType.OFFICIAL.name())) {
+            button = findViewById(R.id.radioOfficial2);
+            button.setChecked(true);
+        }
+        if (busType.equals(BusType.BASIC.name())) {
+            button = findViewById(R.id.radioBasic2);
+            button.setChecked(true);
+        }
+        if (busType.equals(BusType.HIGH_SPEED.name())) {
+            button = findViewById(R.id.radioHigh2);
+            button.setChecked(true);
+        }
         radioGroup.setOnCheckedChangeListener((radioGroup, id) -> {
             switch (id) {
-                case R.id.radioBasic1:
+                case R.id.radioBasic2:
                     busType = BusType.BASIC.name();
                     break;
-                case R.id.radioHigh1:
+                case R.id.radioHigh2:
                     busType = BusType.HIGH_SPEED.name();
                     break;
-                case R.id.radioOfficial1:
+                case R.id.radioOfficial2:
                     busType = BusType.OFFICIAL.name();
                     break;
                 default:
@@ -51,19 +84,11 @@ public class AddActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void addTripButton(View v) {
-        EditText numberEdit = findViewById(R.id.numberTrip);
-        EditText destinationEdit = findViewById(R.id.destinationTrip);
-
-        String number = numberEdit.getText().toString();
-        String destination = destinationEdit.getText().toString();
-        int arrivalHour = timePicker.getHour();
-        int arrivalMinute = timePicker.getMinute();
-        String arrivalTime;
-        int departureHour;
-        int departureMinute;
-        String departureTime;
-
+    public void editTripButton(View v) {
+        number = numberEdit.getText().toString();
+        destination = destinationEdit.getText().toString();
+        arrivalHour = timePicker.getHour();
+        arrivalMinute = timePicker.getMinute();
         if (arrivalHour == 23 && arrivalMinute >= 55) {
             arrivalTime = arrivalHour + ":" + arrivalMinute;
             departureHour = 0;
@@ -125,15 +150,19 @@ public class AddActivity extends AppCompatActivity {
         } else if (number.length() > 4 || number.length() > 4) {
             Toast.makeText(this, "Номер должен содержать 4 цифры", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, "Добавлен новый рейс", Toast.LENGTH_LONG).show();
-            MainActivity.trips.add(new Trip(number, busType, destination,
-                    arrivalHour, arrivalMinute, arrivalTime,
-                    departureHour, departureMinute, departureTime));
-            MainActivity.sizeOfArray++;
-            Intent intent = new Intent(AddActivity.this, MainActivity.class);
+            Toast.makeText(this, "Выбранный рейс изменен", Toast.LENGTH_LONG).show();
+            selectedTrip.setNumber(number);
+            selectedTrip.setDestination(destination);
+            selectedTrip.setArrivalHour(arrivalHour);
+            selectedTrip.setArrivalMinute(arrivalMinute);
+            selectedTrip.setArrivalTime(arrivalTime);
+            selectedTrip.setBusType(busType);
+            selectedTrip.setDepartureHour(departureHour);
+            selectedTrip.setDepartureMinute(departureMinute);
+            selectedTrip.setDepartureTime(departureTime);
+            Intent intent = new Intent(EditActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
-
         }
     }
 }

@@ -3,11 +3,16 @@
     <string name="findTrips">Искать рейсы</string>
     <string name="allTrips">Все рейсы</string>
     <string name="addTrip">Добавить рейс</string>
-    <string name="saveFile">Сохранить файл</string>
-    <string name="loadFile">Загрузить файл</string>
+    <string name="editTrip">Изменить рейс</string>
+
 
     <string name="numberTrip">Номер рейса:</string>
     <string name="busTypeTrip">Тип автобуса:</string>
     <string name="destinationTrip">Пункт назначения:</string>
     <string name="arrivalTrip">Время отправления:</string>
+
+    <string name="basic">Обычная</string>
+    <string name="high">Скоростная</string>
+    <string name="official">Служебная</string>
+
 </resources>

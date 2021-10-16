@@ -4,24 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddActivity">
+    tools:context=".EditActivity">
 
     <TextView
-        android:id="@+id/numberTripText"
+        android:id="@+id/numberTripText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="161dp"
         android:text="@string/numberTrip"
-        app:layout_constraintBottom_toTopOf="@+id/numberTrip"
+        app:layout_constraintBottom_toTopOf="@+id/numberTrip2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="DuplicateIds, MissingConstraints" />
 
     <EditText
-        android:id="@+id/numberTrip"
+        android:id="@+id/numberTrip2"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_marginStart="195dp"
@@ -29,77 +29,79 @@
         android:importantForAutofill="no"
         android:inputType="date"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/busTypeTripText"
+        app:layout_constraintBottom_toTopOf="@+id/busTypeTripText2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numberTripText"
+        app:layout_constraintTop_toBottomOf="@+id/numberTripText2"
         tools:ignore="DuplicateIds,LabelFor,MissingConstraints,SpeakableTextPresentCheck,TextFields" />
 
     <TextView
-        android:id="@+id/busTypeTripText"
+        android:id="@+id/busTypeTripText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
         android:layout_marginEnd="161dp"
         android:text="@string/busTypeTrip"
-        app:layout_constraintBottom_toTopOf="@+id/radioGroup1"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numberTrip"
+        app:layout_constraintTop_toBottomOf="@+id/numberTrip2"
         tools:ignore="DuplicateIds,MissingConstraints" />
 
     <RadioGroup
-        android:id="@+id/radioGroup1"
+        android:id="@+id/radioGroup2"
         android:layout_width="212dp"
         android:layout_height="122dp"
         android:layout_marginStart="195dp"
         android:layout_marginEnd="196dp"
         android:orientation="vertical"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/destinationTripText"
+        app:layout_constraintBottom_toTopOf="@+id/destinationTripText2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/busTypeTripText"
+        app:layout_constraintTop_toBottomOf="@+id/busTypeTripText2"
         tools:ignore="DuplicateIds,LabelFor,MissingConstraints,SpeakableTextPresentCheck">
 
         <RadioButton
-            android:id="@+id/radioBasic1"
+            android:id="@+id/radioBasic2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/basic" />
+            android:text="@string/basic"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <RadioButton
-            android:id="@+id/radioHigh1"
+            android:id="@+id/radioHigh2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/high" />
+            android:text="@string/high"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <RadioButton
-            android:id="@+id/radioOfficial1"
+            android:id="@+id/radioOfficial2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/official" />
+            android:text="@string/official"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </RadioGroup>
-
     <TextView
-        android:id="@+id/destinationTripText"
+        android:id="@+id/destinationTripText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
         android:layout_marginEnd="161dp"
         android:text="@string/destinationTrip"
-        app:layout_constraintBottom_toTopOf="@+id/destinationTrip"
+        app:layout_constraintBottom_toTopOf="@+id/destinationTrip2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup1"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2"
         tools:ignore="DuplicateIds, MissingConstraints" />
 
     <EditText
-        android:id="@+id/destinationTrip"
+        android:id="@+id/destinationTrip2"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_marginStart="195dp"
@@ -107,40 +109,40 @@
         android:importantForAutofill="no"
         android:inputType="text"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/arrivalTripText"
+        app:layout_constraintBottom_toTopOf="@+id/arrivalTripText2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/destinationTripText"
+        app:layout_constraintTop_toBottomOf="@+id/destinationTripText2"
         tools:ignore="DuplicateIds,LabelFor,MissingConstraints,SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/arrivalTripText"
+        android:id="@+id/arrivalTripText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
         android:layout_marginEnd="161dp"
         android:text="@string/arrivalTrip"
-        app:layout_constraintBottom_toTopOf="@+id/timePicker2"
+        app:layout_constraintBottom_toTopOf="@+id/timePicker3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/destinationTrip"
+        app:layout_constraintTop_toBottomOf="@+id/destinationTrip2"
         tools:ignore="DuplicateIds, MissingConstraints" />
 
     <TimePicker
-        android:id="@+id/timePicker2"
+        android:id="@+id/timePicker3"
         android:layout_width="257dp"
         android:layout_height="95dp"
         android:layout_marginStart="77dp"
         android:layout_marginEnd="78dp"
         android:longClickable="false"
         android:timePickerMode="spinner"
-        app:layout_constraintBottom_toTopOf="@+id/addTripButton"
+        app:layout_constraintBottom_toTopOf="@+id/editTripButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/arrivalTripText" />
+        app:layout_constraintTop_toBottomOf="@+id/arrivalTripText2" />
 
     <Button
-        android:id="@+id/addTripButton"
+        android:id="@+id/editTripButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -149,13 +151,13 @@
         android:layout_marginBottom="50dp"
         android:layout_weight="1"
         android:background="#8148C8"
-        android:onClick="addTripButton"
-        android:text="@string/addTrip"
+        android:onClick="editTripButton"
+        android:text="@string/editTrip"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timePicker2"
+        app:layout_constraintTop_toBottomOf="@+id/timePicker3"
         tools:ignore="MissingConstraints,TouchTargetSizeCheck,UsingOnClickInXml" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
