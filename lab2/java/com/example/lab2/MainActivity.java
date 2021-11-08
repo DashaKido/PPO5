@@ -102,14 +102,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, AddActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.menuEdit:
-                intent = new Intent(MainActivity.this, EditActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intent);
-                return true;
-            case R.id.menuDelete:
-                Toast.makeText(this, "delete", Toast.LENGTH_LONG).show();
-                return true;
             default:
                 throw new IllegalStateException("Unexpected value: " + id);
         }

@@ -36,6 +36,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
             destination = view.findViewById(R.id.Destination);
             departureTime = view.findViewById(R.id.DepartureTime);
             arrivalTime = view.findViewById(R.id.ArrivalTime);
+            //обработка нажатия на определенный trip
             view.setOnLongClickListener(v -> {
                 showPopupMenu(v);
                 return true;
@@ -73,7 +74,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
             popupMenu.show();
         }
     }
-
+//возвращает данные 1 обьекта
     @NonNull
     @Override
     public TripAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -82,6 +83,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
         return new ViewHolder(view);
     }
 
+    //привязка viewholder к trip по определенной позиции
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(TripAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {

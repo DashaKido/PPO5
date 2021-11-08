@@ -122,8 +122,6 @@ public class AddActivity extends AppCompatActivity {
         }
         if (number.isEmpty() || destination.isEmpty()) {
             Toast.makeText(this, "Не все данные введены", Toast.LENGTH_LONG).show();
-        } else if (number.length() > 4 || number.length() > 4) {
-            Toast.makeText(this, "Номер должен содержать 4 цифры", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "Добавлен новый рейс", Toast.LENGTH_LONG).show();
             MainActivity.trips.add(new Trip(number, busType, destination,
