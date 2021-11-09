@@ -6,17 +6,13 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.AudioManager;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,124 +23,57 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.PermissionListener;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+import java.util.Random;
 
 public class AudioActivity extends AppCompatActivity {
 
-    private SeekBar volumeSeekBar = null;
-    private TextView currentSongName;
-    private TextView playerPosition;
-
     ImageView buttonRew, buttonFF;
-    private AudioManager audioManager;
-    private MediaPlayer mediaPlayer;
-    Handler handler = new Handler();
-    Runnable runnable;
-    //private int pauseAtLength;
-    //private String currentUrlFromStream;
-    ListView listView;
-    String[] items;
-
-    ArrayList<MusicFiles> musicFiles;
+    AudioManager audioManager;
+    SeekBar volumeSeekBar = null;
+    static ArrayList<MusicFiles> musicFiles;
+    static Uri uri;
+    static MediaPlayer mediaPlayer;
     public static final int REQUEST_CODE = 1;
     RecyclerView recyclerView;
     MusicAdapter musicAdapter;
-    SeekBar seekBar;
+    @SuppressLint("StaticFieldLeak")
+    static SeekBar seekBar;
+    @SuppressLint("StaticFieldLeak")
     static TextView songName, artistName, durationPlayed, durationTotal;
-    static ImageView coverArt, nextButton, backButton, shuffleButton, repeatButton;
+    @SuppressLint("StaticFieldLeak")
+    static ImageView nextButton, prevButton, shuffleButton, repeatButton;
     static FloatingActionButton playPauseButton;
-
+    static Handler handler = new Handler();
+    static Thread playThread, prevThread, nextThread;
+    static int pos = -1;
+    static boolean shuffleBool = false, repeatBool = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio);
-
-
-        //currentSongName = findViewById(R.id.songName);
-        //initListView();
-        //listView = findViewById(R.id.songListView);
-        //runTimePermission();
-        /*volumeSeekBar = findViewById(R.id.volume);
-        playerPosition = findViewById(R.id.player_position);
-        TextView playerDuration = findViewById(R.id.player_duration);
-        seekBar = findViewById(R.id.seekBar);
-        buttonRew = findViewById(R.id.button_rew);
-        buttonPlay = findViewById(R.id.button_play);
-        buttonPause = findViewById(R.id.button_pause);
-        buttonFF = findViewById(R.id.button_ff);
-        listView = findViewById(R.id.songListView);
+        init();
         initAudioManager();
-        runTimePermission();
+        permission();
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
 
-
-        /*mediaPlayer = MediaPlayer.create(this, R.raw.minor);
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                seekBar.setProgress(mediaPlayer.getCurrentPosition());
-                handler.postDelayed(this, 500);
-
-            }
-        };
-
-        int duration = mediaPlayer.getDuration();
-        String sDuration = convertFormat(duration);
-        playerDuration.setText(sDuration);
-        buttonPlay.setOnClickListener(view -> {
-            buttonPlay.setVisibility(View.GONE);
-            buttonPause.setVisibility(View.VISIBLE);
-            mediaPlayer.start();
-            seekBar.setMax(mediaPlayer.getDuration());
-            handler.postDelayed(runnable, 0);
-
-        });
-
-        buttonPause.setOnClickListener(view -> {
-            buttonPause.setVisibility(View.GONE);
-            buttonPlay.setVisibility(View.VISIBLE);
-            mediaPlayer.pause();
-            handler.removeCallbacks(runnable);
-        });
-
-        buttonFF.setOnClickListener(view -> {
-            int currentPosition = mediaPlayer.getCurrentPosition();
-            int duration1 = mediaPlayer.getDuration();
-            if (mediaPlayer.isPlaying() && duration1 != currentPosition) {
-                currentPosition = currentPosition + 5000;
-                playerPosition.setText(convertFormat(currentPosition));
-                mediaPlayer.seekTo(currentPosition);
-            }
-        });
-
-        buttonRew.setOnClickListener(view -> {
-            int currentPosition = mediaPlayer.getCurrentPosition();
-            if (mediaPlayer.isPlaying() && currentPosition > 5000) {
-                currentPosition = currentPosition - 5000;
-                playerPosition.setText(convertFormat(currentPosition));
-                mediaPlayer.seekTo(currentPosition);
-            }
-        });
+        if (!(musicFiles.size() < 1)) {
+            musicAdapter = new MusicAdapter(this, musicFiles);
+            recyclerView.setAdapter(musicAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        }
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (fromUser) {
-                    mediaPlayer.seekTo(progress);
+                if (mediaPlayer != null && fromUser) {
+                    mediaPlayer.seekTo(progress * 1000);
                 }
-                playerPosition.setText(convertFormat(mediaPlayer.getCurrentPosition()));
             }
 
             @Override
@@ -158,19 +87,285 @@ public class AudioActivity extends AppCompatActivity {
             }
         });
 
-        mediaPlayer.setOnCompletionListener(mp -> {
-            buttonPause.setVisibility(View.GONE);
-            buttonPlay.setVisibility(View.VISIBLE);
-            mediaPlayer.seekTo(0);
-        });*/
-        permission();
+        AudioActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mediaPlayer != null) {
+                    int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
+                    seekBar.setProgress(mCurrentPosition);
+                    durationPlayed.setText(formattedTime(mCurrentPosition));
+                }
+                handler.postDelayed(this, 1000);
+            }
+        });
+
+        buttonFF.setOnClickListener(view -> {
+            int currentPosition = mediaPlayer.getCurrentPosition();
+            int duration = mediaPlayer.getDuration();
+            if (mediaPlayer.isPlaying() && duration != currentPosition) {
+                currentPosition = currentPosition + 5000;
+                durationPlayed.setText(formattedTime(currentPosition / 1000));
+                mediaPlayer.seekTo(currentPosition);
+            }
+        });
+
+        buttonRew.setOnClickListener(view -> {
+            int currentPosition = mediaPlayer.getCurrentPosition();
+            if (mediaPlayer.isPlaying() && currentPosition > 5000) {
+                currentPosition = currentPosition - 5000;
+                durationPlayed.setText(formattedTime(currentPosition / 1000));
+                mediaPlayer.seekTo(currentPosition);
+            }
+        });
+
+        shuffleButton.setOnClickListener(view -> {
+            if (shuffleBool) {
+                shuffleBool = false;
+                shuffleButton.setImageResource(R.drawable.ic_shuffle_off);
+            } else {
+                shuffleBool = true;
+                shuffleButton.setImageResource(R.drawable.ic_shuffle_on);
+            }
+        });
+
+        repeatButton.setOnClickListener(view -> {
+            if (repeatBool) {
+                repeatBool = false;
+                repeatButton.setImageResource(R.drawable.ic_repeat_off);
+            } else {
+                repeatBool = true;
+                repeatButton.setImageResource(R.drawable.ic_repeat_on);
+            }
+
+        });
+    }
+
+    private void init() {
+        songName = findViewById(R.id.songName);
+        artistName = findViewById(R.id.songArtist);
+        durationPlayed = findViewById(R.id.player_position);
+        durationTotal = findViewById(R.id.player_duration);
+        nextButton = findViewById(R.id.button_next);
+        prevButton = findViewById(R.id.button_previous);
+        shuffleButton = findViewById(R.id.button_random);
+        repeatButton = findViewById(R.id.button_loop);
+        playPauseButton = findViewById(R.id.button_play);
+        seekBar = findViewById(R.id.seekBar);
+        volumeSeekBar = findViewById(R.id.volume);
+        buttonRew = findViewById(R.id.button_rew);
+        buttonFF = findViewById(R.id.button_ff);
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        if (!(musicFiles.size() < 1)) {
-            musicAdapter = new MusicAdapter(this, musicFiles);
-            recyclerView.setAdapter(musicAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+    }
+
+    @Override
+    protected void onResume() {
+        playThreadButton();
+        nextThreadButton();
+        prevThreadButton();
+        super.onResume();
+    }
+
+    private void prevThreadButton() {
+        prevThread = new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                prevButton.setOnClickListener(view -> prevButtonClicked());
+            }
+        };
+        prevThread.start();
+    }
+
+    private void prevButtonClicked() {
+        if (mediaPlayer == null) {
+            Toast.makeText(this, "Нужно выбрать песню", Toast.LENGTH_LONG).show();
         }
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            if (shuffleBool && !repeatBool) {
+                pos = getRandom(musicFiles.size() - 1);
+            } else if (!shuffleBool && !repeatBool) {
+                pos = ((pos - 1) < 0 ? (musicFiles.size() - 1) : (pos - 1));
+            }
+            uri = Uri.parse(musicFiles.get(pos).getPath());
+            mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
+            metaData(uri);
+            songName.setText(musicFiles.get(pos).getTitle());
+            artistName.setText(musicFiles.get(pos).getArtist());
+            seekBar.setMax(mediaPlayer.getDuration() / 1000);
+            AudioActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mediaPlayer != null) {
+                        int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
+                        seekBar.setProgress(mCurrentPosition);
+                    }
+                    handler.postDelayed(this, 1000);
+                }
+            });
+            playPauseButton.setImageResource(R.drawable.ic_pause);
+            mediaPlayer.start();
+        } else {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            if (shuffleBool && !repeatBool) {
+                pos = getRandom(musicFiles.size() - 1);
+            } else if (!shuffleBool && !repeatBool) {
+                pos = ((pos - 1) < 0 ? (musicFiles.size() - 1) : (pos - 1));
+            }
+            uri = Uri.parse(musicFiles.get(pos).getPath());
+            mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
+            metaData(uri);
+            songName.setText(musicFiles.get(pos).getTitle());
+            artistName.setText(musicFiles.get(pos).getArtist());
+            seekBar.setMax(mediaPlayer.getDuration() / 1000);
+            AudioActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mediaPlayer != null) {
+                        int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
+                        seekBar.setProgress(mCurrentPosition);
+                    }
+                    handler.postDelayed(this, 1000);
+                }
+            });
+            playPauseButton.setImageResource(R.drawable.ic_play);
+        }
+    }
+
+    private void nextThreadButton() {
+        nextThread = new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                nextButton.setOnClickListener(view -> nextButtonClicked());
+            }
+        };
+        nextThread.start();
+    }
+
+    private void nextButtonClicked() {
+        if (mediaPlayer == null) {
+            Toast.makeText(this, "Нужно выбрать песню", Toast.LENGTH_LONG).show();
+        }
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            if (shuffleBool && !repeatBool) {
+                pos = getRandom(musicFiles.size() - 1);
+            } else if (!shuffleBool && !repeatBool) {
+                pos = ((pos + 1) % musicFiles.size());
+            }
+            uri = Uri.parse(musicFiles.get(pos).getPath());
+            mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
+            metaData(uri);
+            songName.setText(musicFiles.get(pos).getTitle());
+            artistName.setText(musicFiles.get(pos).getArtist());
+            seekBar.setMax(mediaPlayer.getDuration() / 1000);
+            AudioActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mediaPlayer != null) {
+                        int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
+                        seekBar.setProgress(mCurrentPosition);
+                    }
+                    handler.postDelayed(this, 1000);
+                }
+            });
+            playPauseButton.setImageResource(R.drawable.ic_pause);
+            mediaPlayer.start();
+        } else {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            if (shuffleBool && !repeatBool) {
+                pos = getRandom(musicFiles.size() - 1);
+            } else if (!shuffleBool && !repeatBool) {
+                pos = ((pos + 1) % musicFiles.size());
+            }
+            uri = Uri.parse(musicFiles.get(pos).getPath());
+            mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
+            metaData(uri);
+            songName.setText(musicFiles.get(pos).getTitle());
+            artistName.setText(musicFiles.get(pos).getArtist());
+            seekBar.setMax(mediaPlayer.getDuration() / 1000);
+            AudioActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mediaPlayer != null) {
+                        int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
+                        seekBar.setProgress(mCurrentPosition);
+                    }
+                    handler.postDelayed(this, 1000);
+                }
+            });
+            playPauseButton.setImageResource(R.drawable.ic_play);
+        }
+    }
+
+    private int getRandom(int i) {
+        Random random = new Random();
+        return random.nextInt(i + 1);
+    }
+
+    private void playThreadButton() {
+        playThread = new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                playPauseButton.setOnClickListener(view -> playPauseButtonClicked());
+            }
+        };
+        playThread.start();
+    }
+
+    private void playPauseButtonClicked() {
+        if (mediaPlayer == null) {
+            Toast.makeText(this, "Нужно выбрать песню", Toast.LENGTH_LONG).show();
+        } else if (mediaPlayer.isPlaying()) {
+            playPauseButton.setImageResource(R.drawable.ic_play);
+            mediaPlayer.pause();
+            seekBar.setMax(mediaPlayer.getDuration() / 1000);
+            AudioActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mediaPlayer != null) {
+                        int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
+                        seekBar.setProgress(mCurrentPosition);
+                    }
+                    handler.postDelayed(this, 1000);
+                }
+            });
+        } else {
+            playPauseButton.setImageResource(R.drawable.ic_pause);
+            mediaPlayer.start();
+            seekBar.setMax(mediaPlayer.getDuration() / 1000);
+            AudioActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mediaPlayer != null) {
+                        int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
+                        seekBar.setProgress(mCurrentPosition);
+                    }
+                    handler.postDelayed(this, 1000);
+                }
+            });
+        }
+    }
+
+    private static String formattedTime(int mCurrentPosition) {
+        String totalOut;
+        String totalNew;
+        String seconds = String.valueOf(mCurrentPosition % 60);
+        String minutes = String.valueOf(mCurrentPosition / 60);
+        totalOut = minutes + ":" + seconds;
+        totalNew = minutes + ":" + "0" + seconds;
+        if (seconds.length() == 1) {
+            return totalNew;
+        } else {
+            return totalOut;
+        }
+
     }
 
     private void permission() {
@@ -213,7 +408,6 @@ public class AudioActivity extends AppCompatActivity {
                 String path = cursor.getString(2);
                 String artist = cursor.getString(3);
                 MusicFiles musicFiles = new MusicFiles(path, title, artist, duration);
-                //Log.e("Path: " + path, "Title: " + title);
                 tempAudioList.add(musicFiles);
 
             }
@@ -222,115 +416,34 @@ public class AudioActivity extends AppCompatActivity {
         return tempAudioList;
     }
 
-    public static void initSong() {
-        songName =
-    }
-    /*public void runTimePermission() {
-        Dexter.withContext(this).
-                withPermission(Manifest.permission.READ_EXTERNAL_STORAGE).
-                withListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
-                        displaySongs();
-                    }
-
-                    @Override
-                    public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
-                        permissionToken.continuePermissionRequest();
-                    }
-                }).check();
-    }
-
-    public ArrayList<File> findSong(File file) {
-        ArrayList<File> arrayList = new ArrayList<>();
-        File[] files = file.listFiles();
-        assert files != null;
-        for (File singlefile : files) {
-            if (singlefile.isDirectory() && !singlefile.isHidden()) {
-                arrayList.addAll(findSong(singlefile));
-            } else {
-                if (singlefile.getName().endsWith(".mp3") || singlefile.getName().endsWith(".wav")) {
-                    arrayList.add(singlefile);
-                }
-            }
+    public static void initSong(Context mContext) {
+        if (musicFiles != null) {
+            playPauseButton.setImageResource(R.drawable.ic_pause);
+            uri = Uri.parse(musicFiles.get(pos).getPath());
         }
-        return arrayList;
-    }
-
-    void displaySongs() {
-        final ArrayList<File> mySongs = findSong(Environment.getExternalStorageDirectory());
-        items = new String[mySongs.size()];
-        for (int i = 0; i < mySongs.size(); i++) {
-            items[i] = mySongs.get(i).getName().replace(".mp3", "").replace(".wav", "");
-
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = MediaPlayer.create(mContext.getApplicationContext(), uri);
+            mediaPlayer.start();
+        } else {
+            mediaPlayer = MediaPlayer.create(mContext.getApplicationContext(), uri);
+            mediaPlayer.start();
         }
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
-        listView.setAdapter(myAdapter);
-    }*/
-
-    /*@SuppressLint("DefaultLocale")
-    private String convertFormat(int duration) {
-        return String.format("%02d:%02d",
-                TimeUnit.MILLISECONDS.toMinutes(duration),
-                TimeUnit.MILLISECONDS.toSeconds(duration) -
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)));
+        seekBar.setMax(mediaPlayer.getDuration() / 1000);
+        metaData(uri);
+        songName.setText(musicFiles.get(pos).getTitle());
+        artistName.setText(musicFiles.get(pos).getArtist());
     }
-*/
-   /* private void initListView() {
-        final List<String> songList = new ArrayList<>();
-        songList.add("https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3");
-        songList.add("https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp3");
-        songList.add("https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_MG.mp3");
-        ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, songList) {
-            @NonNull
-            @Override
-            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                TextView songTV = (TextView) super.getView(position, convertView, parent);
-                songTV.setTag(songList.get(position));
-                songTV.setTextColor(Color.parseColor("#FFFF00"));
-                songTV.setTypeface(songTV.getTypeface(), Typeface.BOLD);
-                songTV.setText(songList.get(position).substring(songList.get(position).lastIndexOf("/") + 1));
-                songTV.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 22);
-                return songTV;
-            }
-        };
-        ListView listView = (ListView) findViewById(R.id.songListView);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                currentUrlFromStream = view.getTag().toString();
-                currentSongName.setText(currentUrlFromStream.substring(currentUrlFromStream.lastIndexOf("/") + 1));
-                try {
-                    if (mediaPlayer != null) {
-                        mediaPlayer.stop();
-                    }
-                    pauseAtLength = 0;
-                    mediaPlayer = new MediaPlayer();
-                    mediaPlayer.setDataSource(currentUrlFromStream);
-                    mediaPlayer.prepareAsync();
-                    mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mediaPlayer) {
-                            mediaPlayer.start();
-                            playButton.setText("Pause");
-                        }
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        listView.setAdapter(arrayAdapter);
-    }*/
+    public static void metaData(Uri uri) {
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        retriever.setDataSource(uri.toString());
+        int duration_total = Integer.parseInt(musicFiles.get(pos).getDuration()) / 1000;
+        durationTotal.setText(formattedTime(duration_total));
+    }
 
-    /*private void initAudioManager() {
+    private void initAudioManager() {
         try {
             setVolumeControlStream(AudioManager.STREAM_MUSIC);
             audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -356,5 +469,5 @@ public class AudioActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }*/
+    }
 }

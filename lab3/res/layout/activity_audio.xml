@@ -76,7 +76,10 @@
             android:id="@+id/seekBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+
+            android:progressTint="#C097F4"
+            android:thumbTint="#8148C8" />
 
         <TextView
             android:id="@+id/player_duration"
@@ -121,6 +124,8 @@
             android:layout_height="60dp"
             android:contentDescription="@string/todo"
             android:src="@drawable/ic_play"
+            android:tint="#000000"
+            app:backgroundTint="#8148C8"
             tools:ignore="ImageContrastCheck" />
 
         <ImageView
@@ -172,7 +177,9 @@
             android:layout_width="270dp"
             android:layout_height="30dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="60dp" />
+            android:layout_marginBottom="60dp"
+            android:progressTint="#C097F4"
+            android:thumbTint="#8148C8" />
 
         <ImageView
             android:layout_width="30dp"
@@ -188,7 +195,7 @@
         android:layout_height="30dp"
         android:layout_marginTop="10dp"
         android:contentDescription="@string/todo"
-        android:src="@drawable/ic_repeat"
+        android:src="@drawable/ic_repeat_off"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/linearLayout3"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
@@ -201,7 +208,7 @@
         android:layout_height="30dp"
         android:layout_marginTop="10dp"
         android:contentDescription="@string/todo"
-        android:src="@drawable/ic_shuffle"
+        android:src="@drawable/ic_shuffle_off"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
