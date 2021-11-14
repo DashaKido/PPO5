@@ -50,6 +50,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
             public void onClick(View view) {
                 AudioActivity.pos = position;
                 AudioActivity.initSong(mContext);
+
             }
         });
     }
