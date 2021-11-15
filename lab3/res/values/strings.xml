@@ -9,4 +9,6 @@
     <string name="volume">Громкость</string>
     <string name="todo">TODO</string>
     <string name="file_name">File name</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
