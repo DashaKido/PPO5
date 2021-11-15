@@ -7,7 +7,7 @@
     android:background="#1C1C1C"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Audio.AudioActivity">
+    tools:context=".AudioActivity">
 
 
     <androidx.recyclerview.widget.RecyclerView

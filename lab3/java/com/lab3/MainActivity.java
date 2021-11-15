@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.lab3.Audio.AudioActivity;
 import com.lab3.Video.VideoActivity;
 
 public class MainActivity extends AppCompatActivity {
