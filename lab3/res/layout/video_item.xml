@@ -11,8 +11,8 @@
         android:id="@+id/img_thumbnail"
         android:layout_width="112dp"
         android:layout_height="62dp"
-        tools:ignore="MissingConstraints"
-        app:cardCornerRadius="5dp">
+        app:cardCornerRadius="5dp"
+        tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/thumbnail"
@@ -20,19 +20,6 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher" />
-
-        <TextView
-            android:id="@+id/video_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
-            android:background="#111"
-            android:padding="4dp"
-            android:text="4:06"
-            android:textColor="#fff"
-            android:textSize="12sp" />
 
     </androidx.cardview.widget.CardView>
 
@@ -43,19 +30,8 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="16dp"
         android:text="Имя файла"
-        android:textColor="#000"
         app:layout_constraintStart_toEndOf="@+id/img_thumbnail"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="22dp" />
 
-    <ImageView
-        android:id="@+id/menu_more"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_more"
-        android:padding="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="1dp"
-        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
