@@ -11,7 +11,8 @@
         android:id="@+id/relLay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_above="@+id/whatever"
+        android:layout_centerHorizontal="true"
         android:orientation="horizontal">
 
         <ImageView
@@ -64,19 +65,21 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="999"
-            android:textColor="#fff" />
+            android:textColor="#fff"
+            tools:ignore="TextContrastCheck" />
 
         <com.google.android.exoplayer2.ui.DefaultTimeBar
             android:id="@+id/exo_progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_toStartOf="@+id/exo_duration"
-            android:layout_toEndOf="@+id/exo_position"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="20dp"
+            android:layout_toStartOf="@+id/exo_duration"
+            android:layout_toEndOf="@+id/exo_position"
             app:played_color="#8148C8"
-            app:unplayed_color="#aaa" />
+            app:unplayed_color="#aaa"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/exo_duration"
@@ -85,7 +88,8 @@
             android:layout_alignParentEnd="true"
             android:layout_marginStart="10dp"
             android:text="999"
-            android:textColor="#fff" />
+            android:textColor="#fff"
+            tools:ignore="TextContrastCheck" />
 
     </RelativeLayout>
 

@@ -29,7 +29,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        Log.e("Bind", "Method");
+        //Log.e("Bind", "Method");
         return mBinder;
     }
 

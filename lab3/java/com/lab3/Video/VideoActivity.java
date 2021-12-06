@@ -44,6 +44,7 @@ public class VideoActivity extends AppCompatActivity {
         }
     }
 
+    //запрос на доступ к файлам
     private void permission() {
         if (ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -60,7 +61,7 @@ public class VideoActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE_PERMISSION) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-               videoFiles = getAllVideos(this);
+                videoFiles = getAllVideos(this);
             } else {
                 ActivityCompat.requestPermissions(VideoActivity.this, new String[]{
                         Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION);

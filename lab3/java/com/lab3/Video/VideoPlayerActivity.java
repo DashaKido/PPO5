@@ -20,7 +20,7 @@ import com.lab3.R;
 
 public class VideoPlayerActivity extends AppCompatActivity {
     PlayerView playerView;
-    SimpleExoPlayer simpleExoPlayer;
+    SimpleExoPlayer simpleExoPlayer;//media player
     int position = -1;
 
     @Override
